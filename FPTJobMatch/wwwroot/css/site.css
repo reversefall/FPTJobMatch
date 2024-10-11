@@ -69,3 +69,28 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+.tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tag {
+    background-color: #e7f3ff; /* Light blue background */
+    color: #007bff; /* Blue text */
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+    border: 1px solid #007bff; /* Border to match text color */
+    text-align: center;
+    cursor: pointer;
+}
+
+    .tag:hover {
+        background-color: #007bff; /* Darker blue when hovered */
+        color: #ffffff; /* White text */
+    }
+
+    .tag:active {
+        background-color: #0056b3; /* Even darker blue when clicked */
+    }
