@@ -20,12 +20,12 @@
                 </div>
             </form> *@
         </div>
-                <div class="col">
-            <form method="post" asp-controller="JobPosts" asp-action="SearchProduct">
-                <div form="form-group">
-                    <input class="form-control" name="keyword" type="search" placeholder="Enter keyword to search" required />
-                </div>
-            </form>
+           <div class="col">
+                <form method="post" asp-controller="JobPosts" asp-action="SearchProduct">
+             <div form="form-group">
+                <input class="form-control" name="keyword" type="search" placeholder="Enter keyword to search" required />
+             </div>
+                </form>
         </div>
         <div class="col">
             <a class="btn btn-primary" asp-controller="Products" asp-action="SortByPriceASC">Sort by price ASC</a>
@@ -38,7 +38,7 @@
                 <div class="col-md-3 mt-3">
                     <div class="card text-center">
                         <div class="card-body">
-                            <a href="@Url.Action("Edit", "JobPosts", new { id = item.Id })"><img src="@item.Image" width="150" height="200" /></a>
+                            <a href="@Url.Action("Edit", "JobPosts", new { id = item.Id })"><img src="@item.Image" width="150" height="150" /></a>
                             <h5 class="card-text text-uppercase text-primary">@item.Industry</h5>
                             <p class="card-text text-danger bg-warning">@item.JobName</p>
                             <div class="tag-container">
