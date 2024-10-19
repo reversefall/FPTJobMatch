@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace FPTJobMatch.Models
 {
@@ -14,7 +15,11 @@ namespace FPTJobMatch.Models
         public int Salary { get; set; }
         public string Image { get; set; }
 
+        public string EmployerId { get; set; }
+        public User Employer { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+        public ICollection<Application> Applications { get; set; }
+
     }
 }

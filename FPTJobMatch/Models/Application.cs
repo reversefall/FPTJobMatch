@@ -8,7 +8,6 @@ namespace FPTJobMatch.Models
 
         [Required(ErrorMessage = "Full name is required.")]
         [StringLength(100, ErrorMessage = "Full name cannot be longer than 100 characters.")]
-        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Full name must contain only letters and spaces.")]
         public string FullName { get; set; }
 
         [Required(ErrorMessage = "Gender is required.")]
@@ -16,7 +15,6 @@ namespace FPTJobMatch.Models
         public string Gender { get; set; }
 
         [Required(ErrorMessage = "Age is required.")]
-        [Range(18, 100, ErrorMessage = "Age must be between 16 and 100.")]
         public int Age { get; set; }
 
         [Required(ErrorMessage = "Location is required.")]
@@ -30,7 +28,10 @@ namespace FPTJobMatch.Models
 
         public string Description { get; set; }
 
+        public string UserId { get; set; }
+        public User User { get; set; }
         public int JobPostId { get; set; }
         public JobPost JobPost { get; set; }
+
     }
 }

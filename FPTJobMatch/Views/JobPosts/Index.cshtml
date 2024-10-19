@@ -13,12 +13,12 @@
     <h1>Product List</h1>
     <div class="container-fluid"
     <div class="row">
-        <div class="col">
-@*             <form method="post" asp-controller="Products" asp-action="SearchProduct">
+            @*         <div class="col"> search function
+           <form method="post" asp-controller="Products" asp-action="SearchProduct">
                 <div form="form-group">
                     <input class="form-control" name="keyword" type="search" placeholder="Enter keyword to search" required />
                 </div>
-            </form> *@
+            </form> 
         </div>
            <div class="col">
                 <form method="post" asp-controller="JobPosts" asp-action="SearchProduct">
@@ -26,7 +26,7 @@
                 <input class="form-control" name="keyword" type="search" placeholder="Enter keyword to search" required />
              </div>
                 </form>
-        </div>
+        </div> *@ 
         <div class="col">
             <a class="btn btn-primary" asp-controller="Products" asp-action="SortByPriceASC">Sort by price ASC</a>
             <a class="btn btn-danger" asp-controller="Products" asp-action="SortByPriceDSC">Sort by price DSC</a>

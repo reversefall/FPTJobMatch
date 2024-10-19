@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace FPTJobMatch.Data.Migrations
+namespace FPTJobMatch.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -52,9 +52,17 @@ namespace FPTJobMatch.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserId1")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("JobPostId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Application");
                 });
@@ -87,6 +95,12 @@ namespace FPTJobMatch.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("EmployerId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("EmployerId1")
+                        .HasColumnType("int");
+
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
@@ -106,6 +120,8 @@ namespace FPTJobMatch.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("EmployerId1");
+
                     b.ToTable("JobPost");
                 });
 
@@ -120,6 +136,9 @@ namespace FPTJobMatch.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ApplicationId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -175,6 +194,22 @@ namespace FPTJobMatch.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "role1",
+                            ConcurrencyStamp = "59401cc8-260d-475b-b2ad-13f95bb8eaa6",
+                            Name = "Employer",
+                            NormalizedName = "EMPLOYER"
+                        },
+                        new
+                        {
+                            Id = "role2",
+                            ConcurrencyStamp = "6563545f-55ad-4e01-a23b-9039c9d45d7b",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -264,6 +299,40 @@ namespace FPTJobMatch.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "user1",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "6c094b03-b060-4f4c-bb2c-6bc3ff086947",
+                            Email = "emp@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "EMP0@GMAIL.COM",
+                            NormalizedUserName = "EMP0@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAECAUXJecM8TV0Dt77qX9V1oZRPzgZL6RcLDzts9eSWqGi7FohF0iBYhd0s5M6wwUfQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "359845cd-a5b9-491c-9fbb-14d1fd852af2",
+                            TwoFactorEnabled = false,
+                            UserName = "emp@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "user2",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "8f2707a1-0607-469b-a9e3-6e3a7bef9331",
+                            Email = "user@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "USER1@GMAIL.COM",
+                            NormalizedUserName = "USER1@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEWksdt+mCsHRGNnIO5h5TQ0AfypHNa8/0JmySliluSY4ExnnhYWJN9lotkIE+dC9Q==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "5595cf37-eebf-4e92-a7a8-6676f72028e1",
+                            TwoFactorEnabled = false,
+                            UserName = "user@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -327,6 +396,18 @@ namespace FPTJobMatch.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "user1",
+                            RoleId = "role1"
+                        },
+                        new
+                        {
+                            UserId = "user2",
+                            RoleId = "role2"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -353,10 +434,14 @@ namespace FPTJobMatch.Data.Migrations
             modelBuilder.Entity("FPTJobMatch.Models.Application", b =>
                 {
                     b.HasOne("FPTJobMatch.Models.JobPost", "JobPost")
-                        .WithMany()
+                        .WithMany("Applications")
                         .HasForeignKey("JobPostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("FPTJobMatch.Models.User", "User")
+                        .WithMany("Applications")
+                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("FPTJobMatch.Models.JobPost", b =>
@@ -366,6 +451,10 @@ namespace FPTJobMatch.Data.Migrations
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("FPTJobMatch.Models.User", "Employer")
+                        .WithMany()
+                        .HasForeignKey("EmployerId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

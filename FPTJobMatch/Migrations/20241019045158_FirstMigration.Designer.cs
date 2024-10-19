@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace FPTJobMatch.Data.Migrations
+namespace FPTJobMatch.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241011082314_FirstMigration")]
+    [Migration("20241019045158_FirstMigration")]
     partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,9 +54,17 @@ namespace FPTJobMatch.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserId1")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("JobPostId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Application");
                 });
@@ -89,6 +97,12 @@ namespace FPTJobMatch.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("EmployerId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("EmployerId1")
+                        .HasColumnType("int");
+
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
@@ -108,6 +122,8 @@ namespace FPTJobMatch.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("EmployerId1");
+
                     b.ToTable("JobPost");
                 });
 
@@ -122,6 +138,9 @@ namespace FPTJobMatch.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ApplicationId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -355,10 +374,14 @@ namespace FPTJobMatch.Data.Migrations
             modelBuilder.Entity("FPTJobMatch.Models.Application", b =>
                 {
                     b.HasOne("FPTJobMatch.Models.JobPost", "JobPost")
-                        .WithMany()
+                        .WithMany("Applications")
                         .HasForeignKey("JobPostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("FPTJobMatch.Models.User", "User")
+                        .WithMany("Applications")
+                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("FPTJobMatch.Models.JobPost", b =>
@@ -368,6 +391,10 @@ namespace FPTJobMatch.Data.Migrations
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("FPTJobMatch.Models.User", "Employer")
+                        .WithMany()
+                        .HasForeignKey("EmployerId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
